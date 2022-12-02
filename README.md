@@ -9,17 +9,17 @@ By Matthew Christopher Albert
 
 ## Details
  
-### Title
+### Ditonton (Modified)
 
 Ditonton
 
 ### Features
 
-- [ ] TV Series List
-- [ ] TV Series Detail
+- [x] TV Series List
+- [x] TV Series Detail
 - [ ] TV Series Detail - Season and Episode
-- [ ] TV Series Search
-- [ ] Watchlist
-- [ ] Unit Automated Testing (lcov >70%)
+- [x] TV Series Search
+- [x] Watchlist
+- [x] Unit Automated Testing (lcov >70%)
 - [ ] Unit Automated Testing (lcov >95%)
 - [ ] Widget & Integration Testing
