@@ -39,7 +39,7 @@ class TvSeriesDetailModel extends Equatable {
 
   final bool adult;
   final dynamic backdropPath;
-  final List<dynamic> createdBy;
+  final List<dynamic>? createdBy;
   final List<int> episodeRunTime;
   final String firstAirDate;
   final List<GenreModel> genres;
@@ -58,7 +58,7 @@ class TvSeriesDetailModel extends Equatable {
   final String overview;
   final double popularity;
   final String posterPath;
-  final List<dynamic> productionCompanies;
+  final List<dynamic>? productionCompanies;
   final List<SeasonModel> seasons;
   final String status;
   final String tagline;
@@ -104,7 +104,7 @@ class TvSeriesDetailModel extends Equatable {
   Map<String, dynamic> toJson() => {
         "adult": adult,
         "backdrop_path": backdropPath,
-        "created_by": List<dynamic>.from(createdBy.map((x) => x)),
+        "created_by": List<dynamic>.from(createdBy!.map((x) => x)),
         "episode_run_time": List<dynamic>.from(episodeRunTime.map((x) => x)),
         "first_air_date": firstAirDate,
         "genres": List<dynamic>.from(genres.map((x) => x)),
@@ -124,7 +124,7 @@ class TvSeriesDetailModel extends Equatable {
         "popularity": popularity,
         "poster_path": posterPath,
         "production_companies":
-            List<dynamic>.from(productionCompanies.map((x) => x)),
+            List<dynamic>.from(productionCompanies!.map((x) => x)),
         "seasons": List<dynamic>.from(seasons.map((x) => x.toJson())),
         "status": status,
         "tagline": tagline,

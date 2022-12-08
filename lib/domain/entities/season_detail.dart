@@ -8,17 +8,15 @@ class SeasonDetail extends Equatable {
     required this.episodes,
     required this.name,
     required this.overview,
-    required this.tvSeriesSeasonId,
     required this.posterPath,
     required this.seasonNumber,
   });
 
   final String id;
-  final DateTime airDate;
+  final String? airDate;
   final List<Episode> episodes;
   final String name;
   final String overview;
-  final int tvSeriesSeasonId;
   final String posterPath;
   final int seasonNumber;
 
@@ -29,7 +27,6 @@ class SeasonDetail extends Equatable {
         episodes,
         name,
         overview,
-        tvSeriesSeasonId,
         posterPath,
         seasonNumber,
       ];

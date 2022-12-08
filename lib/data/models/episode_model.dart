@@ -1,3 +1,4 @@
+import 'package:ditonton/domain/entities/episode.dart';
 import 'package:equatable/equatable.dart';
 import 'dart:convert';
 
@@ -15,11 +16,9 @@ class EpisodeModel extends Equatable {
     required this.stillPath,
     required this.voteAverage,
     required this.voteCount,
-    required this.crew,
-    required this.guestStars,
   });
 
-  final DateTime airDate;
+  final String? airDate;
   final int episodeNumber;
   final int id;
   final String name;
@@ -29,10 +28,8 @@ class EpisodeModel extends Equatable {
   final int seasonNumber;
   final int showId;
   final String stillPath;
-  final int voteAverage;
+  final double voteAverage;
   final int voteCount;
-  final List<dynamic> crew;
-  final List<dynamic> guestStars;
 
   factory EpisodeModel.fromRawJson(String str) =>
       EpisodeModel.fromJson(json.decode(str));
@@ -40,7 +37,7 @@ class EpisodeModel extends Equatable {
   String toRawJson() => json.encode(toJson());
 
   factory EpisodeModel.fromJson(Map<String, dynamic> json) => EpisodeModel(
-        airDate: DateTime.parse(json["air_date"]),
+        airDate: json["air_date"],
         episodeNumber: json["episode_number"],
         id: json["id"],
         name: json["name"],
@@ -52,13 +49,10 @@ class EpisodeModel extends Equatable {
         stillPath: json["still_path"] == null ? null : json["still_path"],
         voteAverage: json["vote_average"],
         voteCount: json["vote_count"],
-        crew: List<dynamic>.from(json["crew"].map((x) => x)),
-        guestStars: List<dynamic>.from(json["guest_stars"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
-        "air_date":
-            "${airDate.year.toString().padLeft(4, '0')}-${airDate.month.toString().padLeft(2, '0')}-${airDate.day.toString().padLeft(2, '0')}",
+        "air_date": airDate,
         "episode_number": episodeNumber,
         "id": id,
         "name": name,
@@ -70,9 +64,24 @@ class EpisodeModel extends Equatable {
         "still_path": stillPath == null ? null : stillPath,
         "vote_average": voteAverage,
         "vote_count": voteCount,
-        "crew": List<dynamic>.from(crew.map((x) => x)),
-        "guest_stars": List<dynamic>.from(guestStars.map((x) => x)),
       };
+
+  Episode toEntity() {
+    return Episode(
+      airDate: this.airDate,
+      episodeNumber: this.episodeNumber,
+      id: this.id,
+      name: this.name,
+      overview: this.overview,
+      productionCode: this.productionCode,
+      runtime: this.runtime,
+      seasonNumber: this.seasonNumber,
+      showId: this.showId,
+      stillPath: this.stillPath,
+      voteAverage: this.voteAverage,
+      voteCount: this.voteCount,
+    );
+  }
 
   @override
   List<Object?> get props => [
@@ -88,7 +97,5 @@ class EpisodeModel extends Equatable {
         stillPath,
         voteAverage,
         voteCount,
-        crew,
-        guestStars,
       ];
 }
