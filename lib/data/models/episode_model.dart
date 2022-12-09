@@ -43,10 +43,10 @@ class EpisodeModel extends Equatable {
         name: json["name"],
         overview: json["overview"],
         productionCode: json["production_code"],
-        runtime: json["runtime"],
+        runtime: json["runtime"] == null ? 0 : json["runtime"],
         seasonNumber: json["season_number"],
         showId: json["show_id"],
-        stillPath: json["still_path"] == null ? null : json["still_path"],
+        stillPath: json["still_path"] == null ? "" : json["still_path"],
         voteAverage: json["vote_average"],
         voteCount: json["vote_count"],
       );
@@ -61,7 +61,7 @@ class EpisodeModel extends Equatable {
         "runtime": runtime,
         "season_number": seasonNumber,
         "show_id": showId,
-        "still_path": stillPath == null ? null : stillPath,
+        "still_path": stillPath == null ? "" : stillPath,
         "vote_average": voteAverage,
         "vote_count": voteCount,
       };

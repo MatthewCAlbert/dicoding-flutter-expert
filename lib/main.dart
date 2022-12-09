@@ -11,6 +11,7 @@ import 'package:ditonton/presentation/pages/search_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/tv_series_detail_page.dart';
+import 'package:ditonton/presentation/pages/tv_series_season_detail_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_tv_series_page.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
@@ -25,6 +26,7 @@ import 'package:ditonton/presentation/provider/tv_series_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_series_list_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_series_search_notifier.dart';
 import 'package:ditonton/presentation/provider/watchlist_tv_series_notifier.dart';
+import 'package:ditonton/presentation/provider/tv_series_season_detail_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -76,6 +78,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<WatchlistTVSeriesNotifier>(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => di.locator<TVSeriesSeasonNotifier>(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -118,6 +123,13 @@ class MyApp extends StatelessWidget {
               final id = settings.arguments as int;
               return MaterialPageRoute(
                 builder: (_) => TVSeriesDetailPage(id: id),
+                settings: settings,
+              );
+            case TVSeriesSeasonDetailPage.ROUTE_NAME:
+              final args = settings.arguments as List<int>;
+              return MaterialPageRoute(
+                builder: (_) => TVSeriesSeasonDetailPage(
+                    id: args[0], seasonNumber: args[1]),
                 settings: settings,
               );
             case SearchTvSeriesPage.ROUTE_NAME:

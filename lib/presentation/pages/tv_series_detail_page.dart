@@ -2,8 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/domain/entities/season.dart';
 import 'package:ditonton/domain/entities/tv_series.dart';
 import 'package:ditonton/domain/entities/tv_series_detail.dart';
+import 'package:ditonton/presentation/pages/tv_series_season_detail_page.dart';
 import 'package:ditonton/presentation/provider/tv_series_detail_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -180,6 +182,52 @@ class DetailContent extends StatelessWidget {
                             ),
                             Text(
                               tvSeries.overview,
+                            ),
+                            SizedBox(height: 16),
+                            Text(
+                              'Seasons',
+                              style: kHeading6,
+                            ),
+                            Container(
+                              height: 150,
+                              child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, index) {
+                                  final season = tvSeries.seasons[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamed(context,
+                                            TVSeriesSeasonDetailPage.ROUTE_NAME,
+                                            arguments: [
+                                              tvSeries.id,
+                                              index + 1
+                                            ]);
+                                      },
+                                      // Simple List Item with Background
+                                      child: Container(
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          color: kDavysGrey,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(height: 8),
+                                            Text(
+                                              'Season ${index + 1}',
+                                            ),
+                                            SizedBox(height: 8),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                itemCount: tvSeries.seasons.length,
+                              ),
                             ),
                             SizedBox(height: 16),
                             Text(
