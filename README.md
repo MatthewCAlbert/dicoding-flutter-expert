@@ -4,7 +4,7 @@ By Matthew Christopher Albert
 
 ## Submissions
 
-- Submission 1: -
+- Submission 1: Dec 9, 2022
 - Submission 2: -
 
 ## Details
@@ -17,7 +17,7 @@ Ditonton
 
 - [x] TV Series List
 - [x] TV Series Detail
-- [ ] TV Series Detail - Season and Episode
+- [x] TV Series Detail - Season and Episode
 - [x] TV Series Search
 - [x] Watchlist
 - [x] Unit Automated Testing (lcov >70%)
