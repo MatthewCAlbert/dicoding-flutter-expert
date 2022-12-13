@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "141273605175",
+    "project_id": "dcd-flutter-exp",
+    "storage_bucket": "dcd-flutter-exp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:141273605175:android:f7cfb223e90a77a4bb0bb2",
+        "android_client_info": {
+          "package_name": "com.dicoding.ditonton"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "141273605175-k6g3u9pcftg05bm7i37os0fknem08phq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASWrTQgHgnaOH55Y40ex67N8fSj4h3phc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "141273605175-k6g3u9pcftg05bm7i37os0fknem08phq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
