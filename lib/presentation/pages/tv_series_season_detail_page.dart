@@ -1,11 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/genre.dart';
-import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/season_detail.dart';
-import 'package:ditonton/presentation/provider/tv_series_season_detail_notifier.dart';
+import 'package:ditonton/presentation/bloc/tv_series_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TVSeriesSeasonDetailPage extends StatefulWidget {
   static const ROUTE_NAME = '/tv-series/season/detail';
@@ -23,30 +22,34 @@ class _TVSeriesSeasonDetailPageState extends State<TVSeriesSeasonDetailPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      Provider.of<TVSeriesSeasonNotifier>(context, listen: false)
-          .fetchTVSeriesSeasonDetail(widget.id, widget.seasonNumber);
-    });
+    Future.microtask(
+      () => context.read<TVSeriesSeasonDetailBloc>().add(
+            TVSeriesSeasonDetail(widget.id, widget.seasonNumber),
+          ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<TVSeriesSeasonNotifier>(
-        builder: (context, provider, child) {
-          if (provider.seasonDetailState == RequestState.Loading) {
-            return Center(
+      body: BlocBuilder<TVSeriesSeasonDetailBloc, TVSeriesSeasonState>(
+        builder: (context, state) {
+          if (state is TopRatedTVSeriesLoading) {
+            return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (provider.seasonDetailState == RequestState.Loaded) {
-            final season = provider.seasonDetail;
+          } else if (state is TVSeriesSeasonDetailHasData) {
+            final season = state.resultTVSeriesSeasonDetail;
             return SafeArea(
               child: DetailContent(
                 season,
               ),
             );
           } else {
-            return Text(provider.message);
+            return const Center(
+              key: Key('error_message'),
+              child: Text('Failed'),
+            );
           }
         },
       ),

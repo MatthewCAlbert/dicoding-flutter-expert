@@ -1,8 +1,7 @@
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/airing_tv_series_notifier.dart';
+import 'package:ditonton/presentation/bloc/tv_series_bloc.dart';
 import 'package:ditonton/presentation/widgets/tv_series_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AiringTVSeriesPage extends StatefulWidget {
   static const ROUTE_NAME = '/airing-tv-series';
@@ -15,9 +14,11 @@ class AiringTVSeriesPageState extends State<AiringTVSeriesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<AiringTVSeriesNotifier>(context, listen: false)
-            .fetchAiringTVSeries());
+    Future.microtask(
+      () => BlocProvider.of<OnTheAirTVSeriesBloc>(context, listen: false).add(
+        OnTheAirTVSeries(),
+      ),
+    );
   }
 
   @override
@@ -28,24 +29,24 @@ class AiringTVSeriesPageState extends State<AiringTVSeriesPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<AiringTVSeriesNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
-              return Center(
+        child: BlocBuilder<OnTheAirTVSeriesBloc, TVSeriesState>(
+          builder: (context, state) {
+            if (state is OnTheAirTVSeriesLoading) {
+              return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (state is OnTheAirTVSeriesHasData) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final tvSeries = data.tvSeries[index];
-                  return TVSeriesCard(tvSeries);
+                  final tv = state.resultOnTheAirTVSeries[index];
+                  return TVSeriesCard(tv);
                 },
-                itemCount: data.tvSeries.length,
+                itemCount: state.resultOnTheAirTVSeries.length,
               );
             } else {
-              return Center(
+              return const Center(
                 key: Key('error_message'),
-                child: Text(data.message),
+                child: Text('Failed'),
               );
             }
           },
