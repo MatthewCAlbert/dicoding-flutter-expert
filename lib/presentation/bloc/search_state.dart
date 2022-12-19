@@ -29,10 +29,10 @@ class SearchHasMovieData extends SearchState {
   List<Object> get props => [result];
 }
 
-class SearchHasTvData extends SearchState {
+class SearchHasTvSeriesData extends SearchState {
   final List<TvSeries> result;
 
-  const SearchHasTvData(this.result);
+  const SearchHasTvSeriesData(this.result);
 
   @override
   List<Object> get props => [result];

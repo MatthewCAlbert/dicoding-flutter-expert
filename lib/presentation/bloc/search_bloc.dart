@@ -56,7 +56,7 @@ class TVSeriesSearchBloc extends Bloc<SearchEvent, SearchState> {
             emit(SearchError(failure.message));
           },
           (data) {
-            emit(SearchHasTvData(data));
+            emit(SearchHasTvSeriesData(data));
           },
         );
       },

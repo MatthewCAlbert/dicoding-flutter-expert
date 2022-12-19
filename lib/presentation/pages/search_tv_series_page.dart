@@ -42,7 +42,7 @@ class SearchTvSeriesPage extends StatelessWidget {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state is SearchHasTvData) {
+                } else if (state is SearchHasTvSeriesData) {
                   final result = state.result;
                   return Expanded(
                     child: ListView.builder(
