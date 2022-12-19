@@ -1,11 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/data/models/season_detail_model.dart';
 import 'package:ditonton/data/models/tv_series_detail_model.dart';
 import 'package:ditonton/data/models/tv_series_model.dart';
 import 'package:ditonton/data/models/tv_series_response.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter/services.dart';
+import 'package:http/io_client.dart';
 
 abstract class TVSeriesRemoteDataSource {
   Future<List<TvSeriesModel>> getAiringTodayTVSeries();
@@ -22,9 +24,21 @@ class TVSeriesRemoteDataSourceImpl implements TVSeriesRemoteDataSource {
   static const API_KEY = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
   static const BASE_URL = 'https://api.themoviedb.org/3';
 
-  final http.Client client;
+  final IOClient client;
 
   TVSeriesRemoteDataSourceImpl({required this.client});
+
+  Future<IOClient> get globalContext async {
+    final sslCert = await rootBundle.load('certificates/certificates.pem');
+    SecurityContext securityContext = SecurityContext(withTrustedRoots: false);
+    securityContext.setTrustedCertificatesBytes(sslCert.buffer.asInt8List());
+
+    HttpClient client = HttpClient(context: securityContext);
+    client.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => false;
+    IOClient ioClient = IOClient(client);
+    return ioClient;
+  }
 
   @override
   Future<List<TvSeriesModel>> getAiringTodayTVSeries() async {
