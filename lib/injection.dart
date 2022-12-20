@@ -32,7 +32,6 @@ import 'package:ditonton/presentation/bloc/movie_bloc.dart';
 import 'package:ditonton/presentation/bloc/search_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:http/io_client.dart';
 
 final locator = GetIt.instance;
 
@@ -163,17 +162,14 @@ void init() {
 
   // data sources
   locator.registerLazySingleton<MovieRemoteDataSource>(
-      () => MovieRemoteDataSourceImpl(client: locator()));
+      () => MovieRemoteDataSourceImpl(client: null));
   locator.registerLazySingleton<MovieLocalDataSource>(
       () => MovieLocalDataSourceImpl(databaseHelper: locator()));
   locator.registerLazySingleton<TVSeriesRemoteDataSource>(
-      () => TVSeriesRemoteDataSourceImpl(client: locator()));
+      () => TVSeriesRemoteDataSourceImpl(client: null));
   locator.registerLazySingleton<TVSeriesLocalDataSource>(
       () => TVSeriesLocalDataSourceImpl(databaseHelper: locator()));
 
   // helper
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
-
-  // external
-  locator.registerLazySingleton(() => IOClient());
 }
