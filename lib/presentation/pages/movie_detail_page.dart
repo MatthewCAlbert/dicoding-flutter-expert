@@ -42,6 +42,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       if (bloc.state is WatchlistMovieHasStatus) {
         return (bloc.state as WatchlistMovieHasStatus).result;
       }
+      if (bloc.state is WatchlistMovieHasMessage) {
+        return (bloc.state as WatchlistMovieHasMessage).message ==
+            'Added to Watchlist';
+      }
       return false;
     });
     return Scaffold(

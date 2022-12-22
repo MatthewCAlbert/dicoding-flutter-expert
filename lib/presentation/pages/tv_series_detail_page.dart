@@ -44,6 +44,10 @@ class _TVSeriesDetailPageState extends State<TVSeriesDetailPage> {
       if (bloc.state is WatchlistTVSeriesHasStatus) {
         return (bloc.state as WatchlistTVSeriesHasStatus).result;
       }
+      if (bloc.state is WatchlistTVSeriesHasMessage) {
+        return (bloc.state as WatchlistTVSeriesHasMessage).message ==
+            'Added to watchlist';
+      }
       return false;
     });
     return Scaffold(
